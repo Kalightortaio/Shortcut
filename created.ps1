@@ -2,10 +2,6 @@
 function create($create, $optional, $optional2='~\') {
     If ($create -eq 'shortcut') {
         Write-Host "You should never ever be able to see this message, ever, at all. Please report to dev. Quantum Mechanics has failed us."
-    } elseif ($create -eq "development") {
-        cd "D:\Development"
-    } elseif ($create -eq "programming") {
-        cd "D:\Development\Programming"
 #Replace
     } else {
         if ($err) {
