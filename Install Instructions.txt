@@ -1,0 +1,35 @@
+If you haven't enabled powershell scripts yet:
+
+
+1. Start Windows PowerShell with the "Run as Administrator" option. Only members
+   of the Administrators group on the computer can change the execution policy.
+
+2. Enable running unsigned scripts by entering:
+
+   set-executionpolicy remotesigned
+
+
+If you are installing this module:
+
+
+1. Edit the config.ps1 with Notepad to reflect your personal preferences.
+
+2. Start Windows PowerShell with the "Run as Administrator" option.
+
+3. Navigate to the extracted Shortcut folder and start the Installer.ps1 by typing .\install.ps1
+
+
+If you are experiencing problems with the installer:
+
+
+1. cd "(Your Boot Drive):\Program Files\WindowsPowerShell\Modules"
+
+2. mkdir Shortcut
+
+3. cd Shortcut
+
+4. mkdir Update
+
+4. start .
+
+5. Manually move all the module files into the Shortcut folder
