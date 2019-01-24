@@ -21,6 +21,8 @@ Move-Item -Force -Path "$folderpath\install.ps1" -Destination "$($BootDrive):\Pr
 Move-Item -Force -Path "$folderpath\Install Instructions.txt" -Destination "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut"
 Move-Item -Force -Path "$folderpath\Update Instructions.txt" -Destination "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut"
 Move-Item -Force -Path "$folderpath\packager_backup.txt" -Destination "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut"
+Move-Item -Force -Path "$folderpath\LICENSE" -Destination "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut"
+Move-Item -Force -Path "$folderpath\README.md" -Destination "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut"
 $wshell = New-Object -ComObject Wscript.Shell
 $wshell.Popup("Operation Completed!",0,"Shortcut Installer",0x1)
 exit
