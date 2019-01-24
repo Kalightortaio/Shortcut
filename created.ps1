@@ -1,3 +1,4 @@
+. (Join-Path $PSScriptRoot endofscript.ps1)
 
 function create($create, $optional, $optional2='~\') {
     If ($create -eq 'shortcut') {
