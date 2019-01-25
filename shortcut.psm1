@@ -74,6 +74,10 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Move-Item -Force -Path ".\Update\Install Instructions.txt" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\Update Instructions.txt" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\packager_backup.txt" -Destination "$PSScriptRoot" -ErrorAction Ignore
+        Move-Item -Force -Path ".\Update\LICENSE" -Destination "$PSScriptRoot" -ErrorAction Ignore
+        Move-Item -Force -Path ".\Update\README.md" -Destination "$PSScriptRoot" -ErrorAction Ignore
+        Move-Item -Force -Path ".\Update\endofscript.ps1" -Destination "$PSScriptRoot" -ErrorAction Ignore
+
     } elseif ($shortcut -eq "help") {
         Write-Host " "
         Write-Host "changelog  - displays the version history of shortcut"
