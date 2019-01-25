@@ -14,9 +14,11 @@ If you are installing this module:
 
 1. Edit the config.ps1 with Notepad to reflect your personal preferences.
 
-2. Start Windows PowerShell with the "Run as Administrator" option.
+2. Start Windows PowerShell and use the following command:
 
-3. Navigate to the extracted Shortcut folder and start the Installer.ps1 by typing .\install.ps1
+   $location = $(get-location).Path;Start-Process powershell -Verb runAs -ArgumentList "Start-Process powershell -WorkingDirectory $location";exit
+
+3. Start the Installer.ps1 by typing .\install.ps1
 
 
 If you are experiencing problems with the installer:
