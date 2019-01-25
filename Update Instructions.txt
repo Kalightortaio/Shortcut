@@ -2,5 +2,5 @@ If you are updating this module:
 
 1. Transfer all of the Shortcut.zip contents into the (Boot Drive Letter):\ProgramFiles
    \WindowsPowerShell\Modules\Shortcut\Update folder. (Unzip it!).
-
+ 
 2. Use the command "shortcut update" to complete the process.
