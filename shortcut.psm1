@@ -21,7 +21,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         cd $PSScriptRoot
         powershell_ise.exe created.ps1
     } elseif ($shortcut -eq "unelevate") {
-        Start-Process powershell
+        runas /trustlevel:0x20000 "powershell Start-Process powershell"
         exit
     } elseif ($shortcut -eq "reload") {
         Import-Module (Join-Path $PSScriptRoot shortcut.psm1) -Force -Global
@@ -35,7 +35,8 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
     } elseif ($shortcut -eq "findfolder") {
         Get-ChildItem $optional2 -recurse -ErrorAction SilentlyContinue  | Where-Object {$_.PSIsContainer -eq $true -and $_.Name -match $optional}
     } elseif ($shortcut -eq "elevate") {
-        Start-Process powershell -Verb runAs
+        $location = $(get-location).Path
+        Start-Process powershell -Verb runAs -ArgumentList "Start-Process powershell -WorkingDirectory $location"
         exit
     } elseif ($shortcut -eq "follow") {
         if ($optional -eq $null) {
@@ -106,10 +107,10 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Host " "
     } elseif ($shortcut -eq "version") {
         Write-Host " "
-        Write-Host "Shortcut version 1.0"
+        Write-Host "Shortcut version 1.1"
         Write-Host "Use 'shortcut changelog' for more information"
         Write-Host "Written by Krishna Kokatay"
-        Write-Host "Creative Commons 2018"
+        Write-Host "GNU Licensed 2018"
         Write-Host "(Open Source, duh)"
         Write-Host " "
     #This is getting long... might store this as seperate files down the road.
@@ -150,6 +151,9 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Host ""
         Write-Host "Version 1.0 - 24/1/18"
         Write-Host "- Ready for official release! We're still in development of course, but I'm happy with it's current state to go public. Added the commands, update and uninstall."
+        Write-Host ""
+        Write-Host "Version 1.1 - 25/1/18"
+        Write-Host "- Fixed the unelevate command, elevate and unelevate now maintain the working directory, and I added the endofscript file."
         Write-Host ""
     #Main functionality of shortcut. Stores shortcuts in seperate file so I can update the program without interferring with them.
     } elseif ($shortcut -eq "create") {
