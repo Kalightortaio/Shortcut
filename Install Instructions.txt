@@ -6,7 +6,7 @@ If you haven't enabled powershell scripts yet:
 
 2. Enable running unsigned scripts by entering:
 
-   set-executionpolicy remotesigned
+   set-executionpolicy -ExecutionPolicy unrestricted
 
 
 If you are installing this module:
