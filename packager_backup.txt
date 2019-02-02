@@ -1,2 +1,0 @@
-#For self reference, this file has no impact on the shortcut module directly.
-.\ps2exe.ps1 -inputFile '.\install.ps1' -outputFile '.\installer.exe' -noConsole -requireAdmin -noConfigfile
