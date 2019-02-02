@@ -227,7 +227,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
                 $global:sddebugcode=2;return 0 | Out-Null;
             }
             $wshell = New-Object -ComObject Wscript.Shell
-            $wshell.Popup("Please report error code 'memory is the key' to devs at https://github.com/Kalightortaio/shortcut/issues",0,"Shortcut - Bug Detection",0x1)
+            $wshell.Popup("Please report error code 'Memory is the key' to devs at https://github.com/Kalightortaio/shortcut/issues",0,"Shortcut - Bug Detection",0x1)
             $global:sddebugcode=1;return 0 | Out-Null;
         }
     } else {
