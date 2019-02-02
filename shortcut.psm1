@@ -121,7 +121,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "version") {
         Write-Output " "
-        Write-Output "Shortcut version 1.2"
+        Write-Output "Shortcut version 1.3"
         Write-Output "Use 'shortcut changelog' for more information"
         Write-Output "Written by Krishna Kokatay"
         Write-Output "GNU Licensed 2018"
