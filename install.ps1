@@ -29,6 +29,7 @@ Move-Item -Force -Path "$folderpath\LICENSE" -Destination "$($BootDrive):\Progra
 Move-Item -Force -Path "$folderpath\README.md" -Destination "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut"
 Move-Item -Force -Path "$folderpath\endofscript.ps1" -Destination "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut"
 takeown /f "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut" /r
+icacls "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut" /grant administrators:F /t
 $wshell = New-Object -ComObject Wscript.Shell
 $wshell.Popup("Operation Completed!",0,"Shortcut Installer",0x1)
 exit
