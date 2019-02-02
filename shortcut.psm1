@@ -188,7 +188,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         if ($global:sddebugcode -eq 0) {
             $location = $(get-location).Path
             (Get-Content (Join-Path $PSScriptRoot created.ps1)).replace('#Replace', "    } elseif (`$create -eq ""$optional"") {
-        cd ""$location"";'$global:sddebugcode=3;return 0 | Out-Null;
+        cd ""$location"";`$global:sddebugcode=3;return 0 | Out-Null;
 #Replace") | Set-Content (Join-Path $PSScriptRoot created.ps1)
             Import-Module (Join-Path $PSScriptRoot shortcut.psm1) -Force -Global
         } else {
