@@ -73,11 +73,9 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Move-Item -Force -Path ".\Update\install.ps1" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\Install Instructions.txt" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\Update Instructions.txt" -Destination "$PSScriptRoot" -ErrorAction Ignore
-        Move-Item -Force -Path ".\Update\packager_backup.txt" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\LICENSE" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\README.md" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\endofscript.ps1" -Destination "$PSScriptRoot" -ErrorAction Ignore
-
     } elseif ($shortcut -eq "help") {
         Write-Host " "
         Write-Host "changelog  - displays the version history of shortcut"
@@ -111,7 +109,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Host " "
     } elseif ($shortcut -eq "version") {
         Write-Host " "
-        Write-Host "Shortcut version 1.1"
+        Write-Host "Shortcut version 1.2"
         Write-Host "Use 'shortcut changelog' for more information"
         Write-Host "Written by Krishna Kokatay"
         Write-Host "GNU Licensed 2018"
@@ -158,6 +156,9 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Host ""
         Write-Host "Version 1.1 - 25/1/18"
         Write-Host "- Fixed the unelevate command, elevate and unelevate now maintain the working directory, and I added the endofscript file."
+        Write-Host ""
+        Write-Host "Version 1.2 - 1/2/18"
+        Write-Host "- Numerous bug fixes, will learn and complete how to digitally sign this module in the next update."
         Write-Host ""
     #Main functionality of shortcut. Stores shortcuts in seperate file so I can update the program without interferring with them.
     } elseif ($shortcut -eq "create") {
