@@ -6,35 +6,43 @@
 function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
     If ($shortcut -eq "desktop") {
         cd "$($DefaultDrive):\Desktop"
-        break
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "documents") {
         cd "$($DefaultDrive):\Documents"
-        break
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "downloads") {
         cd "$($DefaultDrive):\Downloads"
-        break
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "shortcut") {
         cd $PSScriptRoot
-        break
         powershell_ise.exe shortcut.psm1
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "created") {
         cd $PSScriptRoot
         powershell_ise.exe created.ps1
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "unelevate") {
+        $global:sddebugcode=2
         runas /trustlevel:0x20000 "powershell Start-Process powershell"
         exit
     } elseif ($shortcut -eq "reload") {
         Import-Module (Join-Path $PSScriptRoot shortcut.psm1) -Force -Global
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "window") {
         start .
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "find") {
         Get-ChildItem $optional2 -recurse -ErrorAction SilentlyContinue  | Where-Object {$_.Name -match $optional}
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "touch") {
         echo $null >> $optional
         Clear-Content $optional
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "findfolder") {
         Get-ChildItem $optional2 -recurse -ErrorAction SilentlyContinue  | Where-Object {$_.PSIsContainer -eq $true -and $_.Name -match $optional}
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "elevate") {
+        $global:sddebugcode=2
         $location = $(get-location).Path
         Start-Process powershell -Verb runAs -ArgumentList "Start-Process powershell -WorkingDirectory $location"
         exit
@@ -43,6 +51,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
             Write-Host " "
             Write-Host "Missing destination parameter!"
             Write-Host " "
+            $global:sddebugcode=1;return 0 | Out-Null;
         } else {
             #Credit to Kevin Panko (https://superuser.com/users/3680/kevin-panko)
             if($optional.EndsWith(".lnk")) {
@@ -54,6 +63,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
                 Write-Host "You can only use follow on .lnk files. Be sure to include the file extension. Use the function cd for any other needs."
             }
         }
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "uninstall") {
         Add-Type -AssemblyName Microsoft.VisualBasic
         [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory("$PSScriptRoot",'OnlyErrorDialogs','SendToRecycleBin')
@@ -76,6 +86,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Move-Item -Force -Path ".\Update\LICENSE" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\README.md" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\endofscript.ps1" -Destination "$PSScriptRoot" -ErrorAction Ignore
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "help") {
         Write-Host " "
         Write-Host "changelog  - displays the version history of shortcut"
@@ -107,6 +118,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Host "version    - displays the version of shortcut"
         Write-Host "window     - opens file explorer in current directory"
         Write-Host " "
+        $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "version") {
         Write-Host " "
         Write-Host "Shortcut version 1.2"
@@ -115,6 +127,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Host "GNU Licensed 2018"
         Write-Host "(Open Source, duh)"
         Write-Host " "
+        $global:sddebugcode=2;return 0 | Out-Null;
     #This is getting long... might store this as seperate files down the road.
     } elseif ($shortcut -eq "changelog") {
         Write-Host ""
@@ -160,55 +173,62 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Host "Version 1.2 - 1/2/18"
         Write-Host "- Numerous bug fixes, will learn and complete how to digitally sign this module in the next update."
         Write-Host ""
+        Write-Host "Version 1.3 - 1/2/18"
+        Write-Host "- If v1.1 was the Titanic of programming bugs, v1.2 is the Hindenburg. Everything was broken. Everything. I had to implement debug codes into everything to fix it!"
+        Write-Host ""
     #Main functionality of shortcut. Stores shortcuts in seperate file so I can update the program without interferring with them.
     } elseif ($shortcut -eq "create") {
         if ($optional -eq $null) {
             Write-Host " "
             Write-Host "Missing name parameter. You must name this shortcut."
             Write-Host " "
-        } else {
+            $global:sddebugcode=1;return 0 | Out-Null;
+        }
+        shortcut $optional | Out-Null
+        if ($global:sddebugcode -eq 0) {
             $location = $(get-location).Path
             (Get-Content (Join-Path $PSScriptRoot created.ps1)).replace('#Replace', "    } elseif (`$create -eq ""$optional"") {
-        cd ""$location""
+        cd ""$location"";'$global:sddebugcode=3;return 0 | Out-Null;
 #Replace") | Set-Content (Join-Path $PSScriptRoot created.ps1)
             Import-Module (Join-Path $PSScriptRoot shortcut.psm1) -Force -Global
+        } else {
+            Write-Host " "
+            Write-Host "Error! Shortcut already exists! Use 'shortcut created' to view the list"
+            Write-Host " "
+            $global:sddebugcode=1;return 0 | Out-Null;
         }
     } elseif ($shortcut -eq "delete") {
         if ($optional -eq $null) {
             Write-Host " "
             Write-Host "Missing name parameter. You must name this shortcut."
             Write-Host " "
+            $global:sddebugcode=1;return 0 | Out-Null;
         } else {
             $location = $(get-location).Path
-            #If the shortcut does not exist, an if($err) statement is run
-            $err = 1
-            shortcut $optional
-            $err = 0
+            shortcut $optional | Out-Null
             $temp = $(get-location).Path
-            #The snippet of following code detects if a user attempts to delete a shortcut not found in created.ps1 but rather found in shortcut.psm1
-            if ($location -eq $temp) {
-                if (!($location -eq $env:USERPROFILE)) {
-                    cd "$env:USERPROFILE"
-                } else {
-                    cd "$($DefaultDrive):\"
-                }
-                $locationtemp = $(get-location).Path
-                shortcut $optional 
-                $temp = $(get-location).Path
-                if ($locationtemp -eq $temp) {
-                    cls
-                    Write-Host " "
-                    Write-Host "Do not attempt to delete shortcut commands using the delete command! Edit the script if you must! Thankfully you're reading this and not corrupting your created.ps1 file. Please don't repeat this action, I hate using cls in my programming."
-                    Write-Host " "
-                    cd $location
-                    break
-                }
-                    
+            if ($global:sddebugcode -eq 0) {
+                Write-Host " "
+                Write-Host "Shortcut cannot be deleted, it does not exist. Use 'shortcut created' to view your current list."
+                Write-Host " "
+                $global:sddebugcode=1;return 0 | Out-Null;
             }
-            Get-Content (Join-Path $PSScriptRoot created.ps1) | Select-String -SimpleMatch -Pattern "$optional","$temp" -NotMatch | Out-File (Join-Path $PSScriptRoot backup.ps1)
-            cd $location
-            Move-Item -Path (Join-Path $PSScriptRoot backup.ps1) -Destination (Join-Path $PSScriptRoot created.ps1) -Force
-            Import-Module (Join-Path $PSScriptRoot shortcut.psm1) -Force -Global
+            if ($global:sddebugcode -eq 2) {
+                $wshell = New-Object -ComObject Wscript.Shell
+                $wshell.Popup("Do not attempt to delete shortcut commands using the delete command! Edit the script if you must! Thankfully you're reading this and not corrupting your created.ps1 file. Please don't repeat this action, I hate warning boxes as much as you do!",0,"Shortcut - Warning",0x1)
+                cd $location
+                $global:sddebugcode=1;return 0 | Out-Null;      
+            }
+            if ($global:sddebugcode -eq 3) {
+                Get-Content (Join-Path $PSScriptRoot created.ps1) | Select-String -SimpleMatch -Pattern "$optional","$temp" -NotMatch | Out-File (Join-Path $PSScriptRoot backup.ps1)
+                cd $location
+                Move-Item -Path (Join-Path $PSScriptRoot backup.ps1) -Destination (Join-Path $PSScriptRoot created.ps1) -Force
+                Import-Module (Join-Path $PSScriptRoot shortcut.psm1) -Force -Global
+                $global:sddebugcode=2;return 0 | Out-Null;
+            }
+            $wshell = New-Object -ComObject Wscript.Shell
+            $wshell.Popup("Please report error code 'memory is the key' to devs at https://github.com/Kalightortaio/shortcut/issues",0,"Shortcut - Bug Detection",0x1)
+            $global:sddebugcode=1;return 0 | Out-Null;
         }
     } else {
         create $shortcut $optional $optional2
