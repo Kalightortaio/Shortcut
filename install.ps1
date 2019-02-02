@@ -1,4 +1,5 @@
-﻿#Requires -RunAsAdministrator
+#Requires -RunAsAdministrator
+#Import Code
 . (Join-Path $PSScriptRoot config.ps1)
 
 if ($ValueMustNotBeZero -eq 0) {
