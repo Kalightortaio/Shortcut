@@ -9,7 +9,7 @@ If you haven't enabled powershell scripts yet:
    set-executionpolicy RemoteSigned -Force
 
 
-If you are installing this module:
+If you are installing this module for the first time:
 
 
 1. Edit the config.ps1 with Notepad to reflect your personal preferences.
