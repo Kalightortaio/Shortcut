@@ -4,16 +4,7 @@
 
 #Main function
 function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
-    If ($shortcut -eq "desktop") {
-        cd "$($DefaultDrive):\Desktop"
-        $global:sddebugcode=2;return 0 | Out-Null;
-    } elseif ($shortcut -eq "documents") {
-        cd "$($DefaultDrive):\Documents"
-        $global:sddebugcode=2;return 0 | Out-Null;
-    } elseif ($shortcut -eq "downloads") {
-        cd "$($DefaultDrive):\Downloads"
-        $global:sddebugcode=2;return 0 | Out-Null;
-    } elseif ($shortcut -eq "shortcut") {
+    If ($shortcut -eq "shortcut") {
         cd $PSScriptRoot
         powershell_ise.exe shortcut.psm1
         $global:sddebugcode=2;return 0 | Out-Null;
@@ -95,9 +86,6 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Output "created    - easy access to view or edit the script in powershell ISE"
         Write-Output "delete     - removes a previously created shortcut"
         Write-Output "             Usage: delete <name>"
-        Write-Output "desktop    - shortcut to the desktop folder"
-        Write-Output "documents  - shortcut to the documents folder"
-        Write-Output "downloads  - shortcut to the downloads folder"
         Write-Output "elevate    - opens a new instance of powershell as administrator. Use unelevate to return to a regular instance."
         Write-Output "find       - searches the directory to find the path to a file"
         Write-Output "             Usage: find <filename> <directory>"
@@ -121,7 +109,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "version") {
         Write-Output " "
-        Write-Output "Shortcut version 1.3"
+        Write-Output "Shortcut version 1.3.1"
         Write-Output "Use 'shortcut changelog' for more information"
         Write-Output "Written by Krishna Kokatay"
         Write-Output "GNU Licensed 2018"
@@ -158,23 +146,27 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Output "Version 0.9 - 25/9/18"
         Write-Output "- Removed touch folder, just use mkdir. Preparing for release 1.0 soon, added 'sd' as an alias for shortcut."
         Write-Output ""
-        Write-Output "Version 0.9.5 - 22/1/18"
+        Write-Output "Version 0.9.5 - 22/1/19"
         Write-Output "- Fixed some typos. Planning to add functionality to open lnk files in powershell, make a readout of created shortcuts, and stop windows from viewing the installer as a trojan..."
         Write-Output ""
-        Write-Output "Version 0.9.9 - 23/1/18"
+        Write-Output "Version 0.9.9 - 23/1/19"
         Write-Output "- Added the follow command to follow lnk files in powershell. Also added the delete command to delete created shortcuts (This was done previously by editing the created.ps1 file)."
         Write-Output ""
-        Write-Output "Version 1.0 - 24/1/18"
+        Write-Output "Version 1.0 - 24/1/19"
         Write-Output "- Ready for official release! We're still in development of course, but I'm happy with it's current state to go public. Added the commands, update and uninstall."
         Write-Output ""
-        Write-Output "Version 1.1 - 25/1/18"
+        Write-Output "Version 1.1 - 25/1/19"
         Write-Output "- Fixed the unelevate command, elevate and unelevate now maintain the working directory, and I added the endofscript file."
         Write-Output ""
-        Write-Output "Version 1.2 - 1/2/18"
+        Write-Output "Version 1.2 - 1/2/19"
         Write-Output "- Numerous bug fixes, will learn and complete how to digitally sign this module in the next update."
         Write-Output ""
         Write-Output "Version 1.3 - 1/2/18"
         Write-Output "- If v1.1 was the Titanic of programming bugs, v1.2 is the Hindenburg. Everything was broken. Everything. I had to implement debug codes into everything to fix it!"
+        Write-Output ""
+        Write-Output ""
+        Write-Output "Version 1.3.1 - 1/5/19"
+        Write-Output "- Removed the pre built functions documents, desktop, and downloads, due to a bug. Minor typos fixed."
         Write-Output ""
     #Main functionality of shortcut. Stores shortcuts in seperate file so I can update the program without interferring with them.
     } elseif ($shortcut -eq "create") {
@@ -215,7 +207,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
             }
             if ($global:sddebugcode -eq 2) {
                 $wshell = New-Object -ComObject Wscript.Shell
-                $wshell.Popup("Do not attempt to delete shortcut commands using the delete command! Edit the script if you must! Thankfully you're reading this and not corrupting your created.ps1 file. Please don't repeat this action, I hate warning boxes as much as you do!",0,"Shortcut - Warning",0x1)
+                $wshell.Popup("Do not attempt to delete shortcut commands using the delete command! Edit the script if you must! Thankfully you're reading this and not corrupting your shortcut.ps1 file. Please don't repeat this action, I hate warning boxes as much as you do!",0,"Shortcut - Warning",0x1)
                 cd $location
                 $global:sddebugcode=1;return 0 | Out-Null;      
             }
