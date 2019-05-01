@@ -13,9 +13,6 @@ create     - creates a shortcut to the current directory
 created    - easy access to view or edit the script in powershell ISE
 delete     - removes a previously created shortcut
              Usage: delete <name>
-desktop    - shortcut to the desktop folder
-documents  - shortcut to the documents folder
-downloads  - shortcut to the downloads folder
 elevate    - opens a new instance of powershell as administrator. Use unelevate to return to a regular instance.
 find       - searches the directory to find the path to a file
              Usage: find <filename> <directory>
