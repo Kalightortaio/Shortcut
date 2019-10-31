@@ -164,9 +164,11 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Output "Version 1.3 - 1/2/18"
         Write-Output "- If v1.1 was the Titanic of programming bugs, v1.2 is the Hindenburg. Everything was broken. Everything. I had to implement debug codes into everything to fix it!"
         Write-Output ""
-        Write-Output ""
         Write-Output "Version 1.3.1 - 1/5/19"
         Write-Output "- Removed the pre built functions documents, desktop, and downloads, due to a bug. Minor typos fixed."
+        Write-Output ""
+        Write-Output "Version 1.4 - 31/10/19"
+        Write-Output "- Changed the missing destination behavoir to instead run change directory (cd). This way, the shortcut alias (sd) can be used for even quicker navigation."
         Write-Output ""
     #Main functionality of shortcut. Stores shortcuts in seperate file so I can update the program without interferring with them.
     } elseif ($shortcut -eq "create") {
