@@ -1,11 +1,7 @@
 #This file was created to prevent any future edits to the created.ps1 file. If error checking or extraneous commands need to be added at the end of the script, it is now permissible without interferring with user data.
 
 function endofscript($endofscript, $optional, $optional2='$env:USERPROFILE') {
-      Write-Output " "
-      Write-Output "Missing Destination! You probably need to program it in..."
-      Write-Output " "
-      Write-Output "Use shortcut help for documentation."
-      Write-Output " "
+      Set-Location $endofscript
       $global:sddebugcode=0;return 0 | Out-Null;
 }
 
