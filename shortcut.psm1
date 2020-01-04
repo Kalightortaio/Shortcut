@@ -6,7 +6,8 @@
 function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
     If ($ValueMustNotBeZero -eq "0") {
         Write-Host " "
-        Write-Host "Please edit the config file appropriately before trying to use shortcut."
+        Write-Host "Please edit the config file appropriately before trying to use the shortcut module."
+        Write-Host " "
     } elseif ($shortcut -eq "shortcut") {
         cd $PSScriptRoot
         powershell_ise.exe shortcut.psm1
