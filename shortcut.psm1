@@ -78,7 +78,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Move-Item -Force -Path ".\Update\README.md" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\endofscript.ps1" -Destination "$PSScriptRoot" -ErrorAction Ignore
         $global:sddebugcode=2;return 0 | Out-Null;
-    } elseif ($shortcut -eq "help") {
+    } elseif ($shortcut -eq "help" -or $shortcut -eq "?" -or $shortcut -eq "/?" -or $shortcut -eq "/help") {
         Write-Output " "
         Write-Output "changelog  - displays the version history of shortcut"
         Write-Output "create     - creates a shortcut to the current directory"
@@ -95,8 +95,8 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Output "             Usage: follow <name>.lnk"
         Write-Output "help       - displays this page :^]"
         Write-Output "reload     - refreshes the module from memory and reloads the most current version"
-        Write-Output "sd         - a shortened alias to use in leui of shortcut. Note that this is not a command, but an alias for the function shortcut."
-        Write-Output "             Usage: sd <command>"
+        Write-Output "sd         - a shortened alias to use in leui of shortcut. Note that this is not a command, but an alias for the function shortcut. This can also be used as an alias for the cd or Set-Location commands."
+        Write-Output "             Usage: sd <command or destination>"
         Write-Output "shortcut   - easy access to view or edit the script in powershell ISE"
         Write-Output "touch      - creates a file in current directory"
         Write-Output "             Usage: touch <filename>.<extension>"
@@ -109,7 +109,7 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         $global:sddebugcode=2;return 0 | Out-Null;
     } elseif ($shortcut -eq "version") {
         Write-Output " "
-        Write-Output "Shortcut version 1.3.1"
+        Write-Output "Shortcut version 1.5"
         Write-Output "Use 'shortcut changelog' for more information"
         Write-Output "Written by Krishna Kokatay"
         Write-Output "GNU Licensed 2018"
@@ -168,7 +168,10 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Output "- Removed the pre built functions documents, desktop, and downloads, due to a bug. Minor typos fixed."
         Write-Output ""
         Write-Output "Version 1.4 - 31/10/19"
-        Write-Output "- Changed the missing destination behavoir to instead run change directory (cd). This way, the shortcut alias (sd) can be used for even quicker navigation."
+        Write-Output "- Changed the missing destination behavior to instead run change directory (cd). This way, the shortcut alias (sd) can be used for even quicker navigation."
+        Write-Output ""
+        Write-Output "Version 1.5 - 3/1/20"
+        Write-Output "- Fixed the broken functionality 1.4 was meant to implement. Minor typos were caught, and the help command was changed to be more friendly."
         Write-Output ""
     #Main functionality of shortcut. Stores shortcuts in seperate file so I can update the program without interferring with them.
     } elseif ($shortcut -eq "create") {
