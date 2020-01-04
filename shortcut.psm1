@@ -4,7 +4,10 @@
 
 #Main function
 function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
-    If ($shortcut -eq "shortcut") {
+    If ($ValueMustNotBeZero -eq "0") {
+        Write-Host " "
+        Write-Host "Please edit the config file appropriately before trying to use shortcut."
+    } elseif ($shortcut -eq "shortcut") {
         cd $PSScriptRoot
         powershell_ise.exe shortcut.psm1
         $global:sddebugcode=2;return 0 | Out-Null;
