@@ -1,4 +1,4 @@
-# Shortcut
+# Shortcut / sd
 A powershell module aimed at making navigating the Windows OS a little bit easier.
 
 Originally it was designed to create 'waypoints' around my various programming folders, but soon became my full fledged dive into learning PowerShell scripting. It's core features still revolve around making navigation for new or experienced developers' lives easier.
