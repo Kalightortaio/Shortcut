@@ -15,7 +15,7 @@ If you are installing this module for the first time:
 
 2. Use the following command:
 
-   $location = $(get-location).Path;Start-Process powershell -Verb runAs -ArgumentList "Start-Process powershell -WorkingDirectory $location";exit
+   $location=$(get-location).Path;$location="`"$location`"";$location="`"$location`"";$location="`"$location`"";Start-Process powershell -Verb runAs -ArgumentList "-noexit", "cd $location";exit
 
 3. Start the Installer.ps1 by typing .\install.ps1
 
