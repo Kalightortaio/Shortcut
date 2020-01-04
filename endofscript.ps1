@@ -1,8 +1,14 @@
 #This file was created to prevent any future edits to the created.ps1 file. If error checking or extraneous commands need to be added at the end of the script, it is now permissible without interferring with user data.
 
 function endofscript($endofscript, $optional, $optional2='$env:USERPROFILE') {
-      Set-Location $endofscript
-      $global:sddebugcode=0;return 0 | Out-Null;
+    try {
+        Set-Location -Path $endofscript[0]
+    }
+    catch {
+        Write-Host " "
+        Write-Host "A destination at the specified path does not exist. Use sd help for a list of appropriate actions."
+    }
+    $global:sddebugcode=0;return 0 | Out-Null;
 }
 
 #Debug Codes
