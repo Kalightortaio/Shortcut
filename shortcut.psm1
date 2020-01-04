@@ -4,13 +4,7 @@
 
 #Main function
 function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
-    If ($ValueMustNotBeZero -eq "0") {
-        Write-Host " "
-        Write-Host "Please edit the config file appropriately before trying to use the shortcut module."
-        Write-Host " "
-        cd $PSScriptRoot
-        powershell_ise.exe config.ps1
-    } elseif ($shortcut -eq "shortcut") {
+    If ($shortcut -eq "shortcut") {
         cd $PSScriptRoot
         powershell_ise.exe shortcut.psm1
         $global:sddebugcode=2;return 0 | Out-Null;
@@ -65,16 +59,6 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Add-Type -AssemblyName Microsoft.VisualBasic
         [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory("$PSScriptRoot",'OnlyErrorDialogs','SendToRecycleBin')
     } elseif ($shortcut -eq "update") {
-        if (!(Test-Path (Join-Path $PSScriptRoot created.ps1))) {
-            Move-Item -Path ".\Update\created.ps1" -Destination "$PSScriptRoot"
-        }
-        if (!(Test-Path (Join-Path $PSScriptRoot config.ps1))) {
-            Move-Item -Path ".\Update\config.ps1" -Destination "$PSScriptRoot"
-        }
-        if (!(Test-Path "$($BootDrive):\Program Files\WindowsPowerShell\Modules\Shortcut\Update\")) {
-            cd $PSScriptRoot
-            mkdir Update
-        }
         Move-Item -Force -Path ".\Update\shortcut.psm1" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\installer.exe" -Destination "$PSScriptRoot" -ErrorAction Ignore
         Move-Item -Force -Path ".\Update\install.ps1" -Destination "$PSScriptRoot" -ErrorAction Ignore
@@ -94,15 +78,15 @@ function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
         Write-Output "             Usage: delete <name>"
         Write-Output "elevate    - opens a new instance of powershell as administrator. Use unelevate to return to a regular instance."
         Write-Output "find       - searches the directory to find the path to a file"
-        Write-Output "             Usage: find <filename> <directory>"
+        Write-Output "             Usage: find <filename>"
         Write-Output "findfolder - searches the directory to find the path to a folder"
-        Write-Output "             Usage: findfolder <foldername> <directory>"
+        Write-Output "             Usage: findfolder <foldername>"
         Write-Output "follow     - allows access to the destination of shortcut files, a shortcoming of cd"
         Write-Output "             Usage: follow <name>.lnk"
-        Write-Output "help       - displays this page :^]"
+        Write-Output "help       - displays this page!"
         Write-Output "reload     - refreshes the module from memory and reloads the most current version"
         Write-Output "sd         - a shortened alias to use in leui of shortcut. Note that this is not a command, but an alias for"
-        Write-Output "             the function shortcut. This can also be used as an alias for the cd or Set-Location commands."
+        Write-Output "             the function shortcut."
         Write-Output "             Usage: sd <command or destination>"
         Write-Output "shortcut   - easy access to view or edit the script in powershell ISE"
         Write-Output "touch      - creates a file in current directory"
