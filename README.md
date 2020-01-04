@@ -22,7 +22,8 @@ follow     - allows access to the destination of shortcut files, a shortcoming o
              Usage: follow <name>.lnk
 help       - displays this page :^]
 reload     - refreshes the module from memory and reloads the most current version
-sd         - a shortened alias to use in leui of shortcut. Note that this is not a command, but an alias for the function shortcut.
+sd         - a shortened alias to use in leui of shortcut. Note that this is not a command, but an alias for 
+             the function shortcut. This can also be used as an alias for the cd or Set-Location commands.
              Usage: sd <command>
 shortcut   - easy access to view or edit the script in powershell ISE
 touch      - creates a file in current directory
