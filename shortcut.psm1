@@ -1,6 +1,5 @@
 #Import code
 . (Join-Path $PSScriptRoot created.ps1)
-. (Join-Path $PSScriptRoot config.ps1)
 
 #Main function
 function shortcut($shortcut, $optional, $optional2=$env:USERPROFILE) {
